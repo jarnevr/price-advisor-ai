@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { usePricingStore } from '@/store/pricingStore';
 
 export function ScenarioSelections() {
-  const { scenario, updateScenario } = usePricingStore();
+  const { scenario, updateScenario, showHelpText } = usePricingStore();
 
   return (
     <div className="space-y-4">
@@ -31,6 +31,11 @@ export function ScenarioSelections() {
         <Label htmlFor="priceStep" className="text-sm font-medium">
           Prijsstap
         </Label>
+        {showHelpText && (
+          <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
+            Minimale stap waarmee prijzen kunnen worden aangepast. Kleinere stappen geven meer flexibiliteit maar kunnen tot te frequente wijzigingen leiden.
+          </p>
+        )}
         <Select
           value={scenario.priceStep.toString()}
           onValueChange={(value) => updateScenario({ priceStep: parseFloat(value) as 0.10 | 0.50 | 1.00 | 0.99 })}
@@ -51,6 +56,11 @@ export function ScenarioSelections() {
         <Label htmlFor="priceEnding" className="text-sm font-medium">
           Prijseindes
         </Label>
+        {showHelpText && (
+          <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
+            Bepaalt hoe prijzen eindigen. .99 en .95 zijn psychologische prijspunten die conversie verhogen. Hele euro's werken beter voor premium producten.
+          </p>
+        )}
         <Select
           value={scenario.priceEnding}
           onValueChange={(value) => updateScenario({ priceEnding: value as '.99' | '.95' | 'hele euro' })}
@@ -98,6 +108,11 @@ export function ScenarioSelections() {
         <Label htmlFor="competitiveRule" className="text-sm font-medium">
           Competitieve regel (α)
         </Label>
+        {showHelpText && (
+          <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
+            Alpha-factor voor competitieve pricing. Waarde 1.0 = gelijk aan laagste concurrent, 1.1 = 10% boven laagste concurrent. Hogere waarden = meer marge maar mogelijk verlies marktaandeel.
+          </p>
+        )}
         <Input
           id="competitiveRule"
           type="number"

@@ -20,6 +20,7 @@ interface PricingState {
   isLoading: boolean;
   activeTab: 'table' | 'impact' | 'explanation';
   showDeveloperModal: boolean;
+  showHelpText: boolean;
   
   // Actions
   setResults: (skus: SkuRow[], portfolio: PortfolioImpact) => void;
@@ -28,6 +29,7 @@ interface PricingState {
   setIsLoading: (loading: boolean) => void;
   setActiveTab: (tab: 'table' | 'impact' | 'explanation') => void;
   setShowDeveloperModal: (show: boolean) => void;
+  setShowHelpText: (show: boolean) => void;
   setPriceResponse: (data: PriceResponsePoint[]) => void;
   setWaterfall: (data: WaterfallItem[]) => void;
 }
@@ -62,6 +64,7 @@ export const usePricingStore = create<PricingState>((set, get) => ({
   isLoading: false,
   activeTab: 'table',
   showDeveloperModal: false,
+  showHelpText: true,
   
   updateScenario: (updates) =>
     set((state) => ({
@@ -87,6 +90,8 @@ export const usePricingStore = create<PricingState>((set, get) => ({
   setActiveTab: (tab) => set({ activeTab: tab }),
   
   setShowDeveloperModal: (show) => set({ showDeveloperModal: show }),
+  
+  setShowHelpText: (show) => set({ showHelpText: show }),
   
   setPriceResponse: (data) =>
     set((state) => ({
