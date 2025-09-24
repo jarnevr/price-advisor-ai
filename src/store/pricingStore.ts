@@ -47,6 +47,8 @@ const defaultScenario: Scenario = {
   avoidStockouts: true,
   psychologicalEndings: true,
   portfolioTargets: false,
+  usePriceStep: true,
+  usePriceEndings: true,
 };
 
 export const usePricingStore = create<PricingState>((set, get) => ({

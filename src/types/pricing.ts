@@ -16,6 +16,10 @@ export interface Scenario {
   avoidStockouts: boolean;
   psychologicalEndings: boolean;
   portfolioTargets: boolean;
+  
+  // Feature toggles
+  usePriceStep: boolean;
+  usePriceEndings: boolean;
 }
 
 export interface SkuRow {

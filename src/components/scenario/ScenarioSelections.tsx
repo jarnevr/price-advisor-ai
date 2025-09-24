@@ -1,6 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 import { usePricingStore } from '@/store/pricingStore';
 
 export function ScenarioSelections() {
@@ -27,10 +28,17 @@ export function ScenarioSelections() {
         </Select>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="priceStep" className="text-sm font-medium">
-          Prijsstap
-        </Label>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <Label htmlFor="priceStep" className="text-sm font-medium">
+            Prijsstap
+          </Label>
+          <Switch
+            id="usePriceStep"
+            checked={scenario.usePriceStep}
+            onCheckedChange={(checked) => updateScenario({ usePriceStep: checked })}
+          />
+        </div>
         {showHelpText && (
           <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
             Minimale stap waarmee prijzen kunnen worden aangepast. Kleinere stappen geven meer flexibiliteit maar kunnen tot te frequente wijzigingen leiden.
@@ -39,8 +47,9 @@ export function ScenarioSelections() {
         <Select
           value={scenario.priceStep.toString()}
           onValueChange={(value) => updateScenario({ priceStep: parseFloat(value) as 0.10 | 0.50 | 1.00 | 0.99 })}
+          disabled={!scenario.usePriceStep}
         >
-          <SelectTrigger>
+          <SelectTrigger className={!scenario.usePriceStep ? "opacity-50" : ""}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -52,20 +61,28 @@ export function ScenarioSelections() {
         </Select>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="priceEnding" className="text-sm font-medium">
-          Prijseindes
-        </Label>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <Label htmlFor="priceEnding" className="text-sm font-medium">
+            Prijseindes
+          </Label>
+          <Switch
+            id="usePriceEndings"
+            checked={scenario.usePriceEndings}
+            onCheckedChange={(checked) => updateScenario({ usePriceEndings: checked })}
+          />
+        </div>
         {showHelpText && (
           <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
-            Bepaalt hoe prijzen eindigen. .99 en .95 zijn psychologische prijspunten die conversie verhogen. Hele euro's werken beter voor premium producten.
+            Bepaalt hoe prijzen eindigen. .99 en .95 zijn psychologische prijspunten die conversie verhogen. Hele euro&apos;s werken beter voor premium producten.
           </p>
         )}
         <Select
           value={scenario.priceEnding}
           onValueChange={(value) => updateScenario({ priceEnding: value as '.99' | '.95' | 'hele euro' })}
+          disabled={!scenario.usePriceEndings}
         >
-          <SelectTrigger>
+          <SelectTrigger className={!scenario.usePriceEndings ? "opacity-50" : ""}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
